@@ -1,11 +1,12 @@
 package main
 
 import (
+	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 
-	"github.com/micro/go-micro/logger"
 	"github.com/unico/FeirasLivresAPI/api"
 	"github.com/unico/FeirasLivresAPI/app"
 	"github.com/unico/FeirasLivresAPI/store"
@@ -16,9 +17,10 @@ func main() {
 
 	config.Watch(func(c config.Config, quit chan bool) {
 		ec := echo.New()
+		//ec.Validator = validator.New()
 
-		dbWriter := sqlx.MustConnect("mysql", "root:123@/feira")
-		dbReader := sqlx.MustConnect("mysql", "root:123@/feira")
+		dbWriter := sqlx.MustConnect("mysql", "root:123@/feira?charset=utf8mb4,utf8\\u0026readTimeout=30s\\u0026writeTimeout=30s&parseTime=true")
+		dbReader := sqlx.MustConnect("mysql", "root:123@/feira?charset=utf8mb4,utf8\\u0026readTimeout=30s\\u0026writeTimeout=30s&parseTime=true")
 
 		// criação dos stores com a injeção do banco de escrita e leitura
 		stores := store.New(store.Options{
@@ -45,9 +47,9 @@ func main() {
 			ec.Close()
 		}()
 
-		go ec.Start(c.GetString("server.port"))
+		go ec.Start(":7000")
 
-		logger.Info("API Feiras Livres inicializado!")
+		fmt.Println("Feiras Livres API Inicializado!")
 
 	})
 
