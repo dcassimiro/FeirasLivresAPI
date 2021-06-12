@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/unico/FeirasLivresAPI/api/v1/feira"
 	"github.com/unico/FeirasLivresAPI/app"
 )

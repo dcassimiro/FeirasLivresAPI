@@ -1,9 +1,9 @@
 package api
 
 import (
-	"github.com/labstack/echo"
-	"github.com/micro/go-micro/logger"
+	"fmt"
 
+	"github.com/labstack/echo/v4"
 	v1 "github.com/unico/FeirasLivresAPI/api/v1"
 	"github.com/unico/FeirasLivresAPI/app"
 )
@@ -18,5 +18,5 @@ type Options struct {
 func Register(opts Options) {
 	v1.Register(opts.Group, opts.Apps)
 
-	logger.Info("Registered -> Api")
+	fmt.Println("Registered -> Api")
 }
