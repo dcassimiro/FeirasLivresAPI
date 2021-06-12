@@ -15,7 +15,9 @@ type Options struct {
 
 func New(opts Options) *Container {
 
-	container := &Container{}
+	container := &Container{
+		Feira: feira.NewApp(opts.Stores),
+	}
 
 	return container
 }
