@@ -18,7 +18,7 @@ Ferramentas:
 * [logrus](github.com/sirupsen/logrus) - Log
 * [sqlx](https://github.com/jmoiron/sqlx) - Gereciamento de conexão de bancos relacionais
 * [validator](github.com/go-playground/validator/v10) - Validador de structs
-* [Mockgen](https://github.com/golang/mock) - Mock para testes
+* [mockgen](https://github.com/golang/mock) - Mock para testes
 
 ### Configuração de ambiente local
 
@@ -35,7 +35,7 @@ Ferramentas:
 
 ### Download do projeto
 
-* Clonar repositorio dentro na pasta `unico`
+* Clonar repositório dentro na pasta `unico`
 
 ### Configurar banco de dados MySql
 
@@ -61,7 +61,7 @@ Ferramentas:
 * `make run`: comando padrão para executar o programa.
 * `make run-watch`: comando com live reload
 
-- OBS.: O Projeto rodara na porta `:7000`
+- OBS.: O Projeto rodará na porta `:7000`
 
 
 ### Importar dados das feiras 
@@ -90,8 +90,8 @@ obs. executar após rodar o projeto.
 ### Endpoints
 
 * **Create**
-- `POST - http://localhost:7000/v1/feiras`
-- body request:
+`POST - http://localhost:7000/v1/feiras`
+body request:
 
 ```
 {
@@ -115,13 +115,13 @@ obs. executar após rodar o projeto.
 }
 
 ```
-- Resposta
-- 201 = Status Created
+Resposta
+201 = Status Created
 
 
 * **Update**
-- `PUT - http://localhost:7000/v1/feiras/:id`
-- body request com campos obrigatorios:
+`PUT - http://localhost:7000/v1/feiras/:id`
+body request com campos obrigatórios:
 ```
 {
     "long": "1111111111",
@@ -140,25 +140,25 @@ obs. executar após rodar o projeto.
 }
 
 ```
-- Resposta
-- 200 = Status OK
+Resposta
+200 = Status OK
 
 
 * **ReadOne**
-- `GET - http://localhost:7000/v1/feiras/:id`
-- Resposta
-- 200 = Status OK
+`GET - http://localhost:7000/v1/feiras/:id`
+Resposta
+200 = Status OK
 
 
 * **Delete**
-- `DELETE - http://localhost:7000/v1/feiras/:id`
-- Resposta
-- 204 = Status No Content
+`DELETE - http://localhost:7000/v1/feiras/:id`
+Resposta
+204 = Status No Content
 
 
 * **Search por DISTRITO**
-- `GET - http://localhost:7000/v1/feiras//search`
-- body request:
+`GET - http://localhost:7000/v1/feiras//search`
+body request:
 
 ```
 {
@@ -166,11 +166,9 @@ obs. executar após rodar o projeto.
 }
 
 ```
-- Resposta
-- 200 = Status OK
+Resposta
+200 = Status OK
 
-OBS.: Para mais detalhes dos endpoints importar collection `Feira.postman_collection.json` e executar via postman
-
-
-## Logs de erros armazenados no arquivo `logs.txt`
-
+OBS.: 
+- Para mais detalhes dos endpoints importar collection `Feira.postman_collection.json` e executar via postman;
+- Logs de erros armazenados no arquivo `logs.txt`.
