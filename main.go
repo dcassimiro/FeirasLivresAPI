@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -9,18 +9,28 @@ import (
 
 	"github.com/unico/FeirasLivresAPI/api"
 	"github.com/unico/FeirasLivresAPI/app"
+	"github.com/unico/FeirasLivresAPI/db"
+	"github.com/unico/FeirasLivresAPI/logger"
+	"github.com/unico/FeirasLivresAPI/model"
 	"github.com/unico/FeirasLivresAPI/store"
 	config "github.com/unico/FeirasLivresAPI/utils"
+	"github.com/unico/FeirasLivresAPI/validator"
 )
+
+const dbParameter = "feira?charset=utf8mb4,utf8\\u0026readTimeout=30s\\u0026writeTimeout=30s&parseTime=true"
 
 func main() {
 
 	config.Watch(func(c config.Config, quit chan bool) {
 		ec := echo.New()
-		//ec.Validator = validator.New()
+		ec.Validator = validator.New()
 
-		dbWriter := sqlx.MustConnect("mysql", "root:123@/feira?charset=utf8mb4,utf8\\u0026readTimeout=30s\\u0026writeTimeout=30s&parseTime=true")
-		dbReader := sqlx.MustConnect("mysql", "root:123@/feira?charset=utf8mb4,utf8\\u0026readTimeout=30s\\u0026writeTimeout=30s&parseTime=true")
+		db.CreateDB()
+
+		url := model.Url()
+
+		dbWriter := sqlx.MustConnect("mysql", url+dbParameter)
+		dbReader := sqlx.MustConnect("mysql", url+dbParameter)
 
 		// criação dos stores com a injeção do banco de escrita e leitura
 		stores := store.New(store.Options{
@@ -49,8 +59,8 @@ func main() {
 
 		go ec.Start(":7000")
 
-		fmt.Println("Feiras Livres API Inicializado!")
-
+		logger.Info("Feiras Livres API Inicializado!")
+		logger.L.Println(time.Now(), "Feiras Livres API Inicializado!")
 	})
 
 }
