@@ -3,23 +3,23 @@ package model
 import "time"
 
 type FeiraRequest struct {
-	ID_FEIRA   string `json:"id_feira"`
-	XLONG      string `json:"long"`
-	LAT        string `json:"lat"`
-	SETCENS    string `json:"setcens"`
-	AREAP      string `json:"areap"`
-	CODDIST    string `json:"coddist"`
-	DISTRITO   string `json:"distrito"`
-	CODSUBPREF string `json:"codsubpref"`
-	SUBPREFE   string `json:"subprefe"`
-	REGIAO5    string `json:"regiao5"`
-	REGIAO8    string `json:"regiao8"`
-	NOME_FEIRA string `json:"nome_feira"`
-	REGISTRO   string `json:"registro"`
-	LOGRADOURO string `json:"logradouro"`
-	NUMERO     string `json:"numero"`
-	BAIRRO     string `json:"bairro"`
-	REFERENCIA string `json:"referencia"`
+	ID_FEIRA   string  `json:"id_feira" validate:"required"`
+	XLONG      string  `json:"long" validate:"required"`
+	LAT        string  `json:"lat" validate:"required"`
+	SETCENS    string  `json:"setcens" validate:"required"`
+	AREAP      string  `json:"areap" validate:"required"`
+	CODDIST    string  `json:"coddist" validate:"required"`
+	DISTRITO   string  `json:"distrito" validate:"required"`
+	CODSUBPREF string  `json:"codsubpref" validate:"required"`
+	SUBPREFE   string  `json:"subprefe" validate:"required"`
+	REGIAO5    string  `json:"regiao5" validate:"required"`
+	REGIAO8    string  `json:"regiao8" validate:"required"`
+	NOME_FEIRA string  `json:"nome_feira" validate:"required"`
+	REGISTRO   string  `json:"registro" validate:"required"`
+	LOGRADOURO *string `json:"logradouro"`
+	NUMERO     *string `json:"numero"`
+	BAIRRO     *string `json:"bairro"`
+	REFERENCIA *string `json:"referencia"`
 }
 
 type Feira struct {
