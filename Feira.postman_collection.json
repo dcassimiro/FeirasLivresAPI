@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "b0603ce3-4305-490d-9a60-f3814b381aab",
+		"name": "Feira",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "feira",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id_feira\": \"9999999999999\",\n    \"long\": \"1111111111\",\n    \"lat\": \"22222222222\",\n    \"setcens\": \"xxxxxx\",\n    \"areap\": \"xxxxxxxxxxx\",\n    \"coddist\": \"xxxxxxxxxx\",\n    \"distrito\": \"TESTE\",\n    \"codsubpref\": \"xxxxxxxxx\",\n    \"subprefe\": \"xxxxxxxxxxxxx\",\n    \"regiao5\": \"xxxxxx\",\n    \"regiao8\": \"xxxxx\",\n    \"nome_feira\": \"xxxxxxx\",\n    \"registro\": \"xxxxxxx\",\n    \"logradouro\": \"xxxxxxxxxx\",\n    \"numero\": \"xxxxxxx\",\n    \"bairro\": \"xxxxxxxx\",\n    \"referencia\": \"xxxxxxxxxxxxx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7000/v1/feiras",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7000",
+									"path": [
+										"v1",
+										"feiras"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id_feira\": \"123456\",\n    \"long\": \"1111111111\",\n    \"lat\": \"22222222222\",\n    \"setcens\": \"xxxxxx\",\n    \"areap\": \"xxxxxxxxxxx\",\n    \"coddist\": \"xxxxxxxxxx\",\n    \"distrito\": \"xxxxxxxxxx\",\n    \"codsubpref\": \"xxxxxxxxx\",\n    \"subprefe\": \"xxxxxxxxxxxxx\",\n    \"regiao5\": \"xxxxxx\",\n    \"regiao8\": \"xxxxx\",\n    \"nome_feira\": \"xxxxxxx\",\n    \"registro\": \"xxxxxxx\",\n    \"logradouro\": \"xxxxxxxxxx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7000/v1/feiras/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7000",
+									"path": [
+										"v1",
+										"feiras",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ReadOne",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7000/v1/feiras/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7000",
+									"path": [
+										"v1",
+										"feiras",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:7000/v1/feiras/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7000",
+									"path": [
+										"v1",
+										"feiras",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"distrito\": \"BRAS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:7000/v1/feiras/search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "7000",
+									"path": [
+										"v1",
+										"feiras",
+										"search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
