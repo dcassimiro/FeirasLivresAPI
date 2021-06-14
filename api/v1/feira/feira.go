@@ -1,11 +1,13 @@
 package feira
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/unico/FeirasLivresAPI/app"
+	"github.com/unico/FeirasLivresAPI/fverr"
+	"github.com/unico/FeirasLivresAPI/logger"
 	"github.com/unico/FeirasLivresAPI/model"
 )
 
@@ -30,14 +32,16 @@ func (h *handler) create(c echo.Context) error {
 
 	var request model.FeiraRequest
 	if err := c.Bind(&request); err != nil {
-		fmt.Println(ctx, "api.v1.feira.create.Bind", err.Error())
+		logger.ErrorContext(ctx, "api.v1.feira.create.Bind", err.Error())
+		logger.L.Println(time.Now(), "app.feira.create.Bind", err.Error())
 		return err
 	}
 
-	// if err := c.Validate(&request); err != nil {
-	// 	fmt.Println(ctx, "api.v1.feira.create.Validate", err.Error())
-	// 	return err
-	// }
+	if err := c.Validate(&request); err != nil {
+		logger.ErrorContext(ctx, "api.v1.feira.create.Validate", err.Error())
+		logger.L.Println(time.Now(), "app.feira.create.Validate", err.Error())
+		return err
+	}
 
 	data, err := h.apps.Feira.Create(ctx, request)
 	if err != nil {
@@ -54,17 +58,21 @@ func (h *handler) update(c echo.Context) error {
 
 	var request model.FeiraRequest
 	if err := c.Bind(&request); err != nil {
-		// logger.ErrorContext(ctx, "api.v1.feira.update.Bind", err.Error())
+		logger.ErrorContext(ctx, "api.v1.feira.update.Bind", err.Error())
+		logger.L.Println(time.Now(), "app.feira.update.Bind", err.Error())
 		return err
 	}
 
-	// if err := c.Validate(&request); err != nil {
-	// }
+	if err := c.Validate(&request); err != nil {
+		logger.ErrorContext(ctx, "api.v1.feira.update.Validate", err.Error())
+		logger.L.Println(time.Now(), "app.feira.update.Validate", err.Error())
+	}
 
 	id := c.Param("id")
 	if id == "" {
-		// logger.ErrorContext(ctx, "api.v1.feira.update", "o campo 'id' é obrigatório")
-		// return
+		logger.ErrorContext(ctx, "api.v1.feira.update", "o campo 'id' é obrigatório")
+		logger.L.Println(time.Now(), "api.v1.feira.update", "o campo 'id' é obrigatório")
+		return fverr.New(http.StatusBadRequest, "Requisição Inválida", nil)
 	}
 
 	data, err := h.apps.Feira.Update(ctx, id, request)
@@ -82,8 +90,9 @@ func (h *handler) readOne(c echo.Context) error {
 
 	id := c.Param("id")
 	if id == "" {
-		// logger.ErrorContext(ctx, "api.v1.feira.readOne", "o campo 'id' é obrigatório")
-		// return
+		logger.ErrorContext(ctx, "api.v1.feira.readOne", "o campo 'id' é obrigatório")
+		logger.L.Println(time.Now(), "api.v1.feira.readOne", "o campo 'id' é obrigatório")
+		return fverr.New(http.StatusBadRequest, "Requisição Inválida", nil)
 	}
 
 	data, err := h.apps.Feira.ReadOne(ctx, id)
@@ -101,8 +110,9 @@ func (h *handler) delete(c echo.Context) error {
 
 	id := c.Param("id")
 	if id == "" {
-		// logger.ErrorContext(ctx, "api.v1.feira.delete", "o campo 'id' é obrigatório")
-		// return
+		logger.ErrorContext(ctx, "api.v1.feira.delete", "o campo 'id' é obrigatório")
+		logger.L.Println(time.Now(), "api.v1.feira.delete", "o campo 'id' é obrigatório")
+		return fverr.New(http.StatusBadRequest, "Requisição Inválida", nil)
 	}
 
 	err := h.apps.Feira.Delete(ctx, id)
@@ -118,14 +128,20 @@ func (h *handler) search(c echo.Context) error {
 
 	var request searchFeira
 	if err := c.Bind(&request); err != nil {
-		// logger.ErrorContext(ctx, "api.v1.feira.search.Bind", err.Error())
-		return err
+		logger.ErrorContext(ctx, "api.v1.feira.search.Bind", err.Error())
+		logger.L.Println(time.Now(), "app.feira.search.Bind", err.Error())
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Falha ao recuperar dados da requisição",
+		})
 	}
 
-	// if err := c.Validate(&request); err != nil {
-	// 	logger.ErrorContext(ctx, "api.v1.feira.search.Validate", err.Error())
-	// 	return
-	// }
+	if err := c.Validate(&request); err != nil {
+		logger.ErrorContext(ctx, "api.v1.feira.search.Validate", err.Error())
+		logger.L.Println(time.Now(), "api.v1.feira.search.Validate", err.Error())
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Falha ao recuperar dados da requisição",
+		})
+	}
 
 	data, err := h.apps.Feira.Search(ctx, request.Distrito)
 	if err != nil {
