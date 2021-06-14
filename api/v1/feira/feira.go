@@ -6,7 +6,6 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/unico/FeirasLivresAPI/app"
-	"github.com/unico/FeirasLivresAPI/fverr"
 	"github.com/unico/FeirasLivresAPI/logger"
 	"github.com/unico/FeirasLivresAPI/model"
 )
@@ -34,13 +33,17 @@ func (h *handler) create(c echo.Context) error {
 	if err := c.Bind(&request); err != nil {
 		logger.ErrorContext(ctx, "api.v1.feira.create.Bind", err.Error())
 		logger.L.Println(time.Now(), "app.feira.create.Bind", err.Error())
-		return err
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Falha ao recuperar dados da requisição",
+		})
 	}
 
 	if err := c.Validate(&request); err != nil {
 		logger.ErrorContext(ctx, "api.v1.feira.create.Validate", err.Error())
 		logger.L.Println(time.Now(), "app.feira.create.Validate", err.Error())
-		return err
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Requisição Inválida",
+		})
 	}
 
 	data, err := h.apps.Feira.Create(ctx, request)
@@ -60,19 +63,26 @@ func (h *handler) update(c echo.Context) error {
 	if err := c.Bind(&request); err != nil {
 		logger.ErrorContext(ctx, "api.v1.feira.update.Bind", err.Error())
 		logger.L.Println(time.Now(), "app.feira.update.Bind", err.Error())
-		return err
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Falha ao recuperar dados da requisição",
+		})
 	}
 
 	if err := c.Validate(&request); err != nil {
 		logger.ErrorContext(ctx, "api.v1.feira.update.Validate", err.Error())
 		logger.L.Println(time.Now(), "app.feira.update.Validate", err.Error())
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Requisição Inválida",
+		})
 	}
 
 	id := c.Param("id")
 	if id == "" {
 		logger.ErrorContext(ctx, "api.v1.feira.update", "o campo 'id' é obrigatório")
 		logger.L.Println(time.Now(), "api.v1.feira.update", "o campo 'id' é obrigatório")
-		return fverr.New(http.StatusBadRequest, "Requisição Inválida", nil)
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Requisição Inválida",
+		})
 	}
 
 	data, err := h.apps.Feira.Update(ctx, id, request)
@@ -92,7 +102,9 @@ func (h *handler) readOne(c echo.Context) error {
 	if id == "" {
 		logger.ErrorContext(ctx, "api.v1.feira.readOne", "o campo 'id' é obrigatório")
 		logger.L.Println(time.Now(), "api.v1.feira.readOne", "o campo 'id' é obrigatório")
-		return fverr.New(http.StatusBadRequest, "Requisição Inválida", nil)
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Falha ao recuperar dados da requisição",
+		})
 	}
 
 	data, err := h.apps.Feira.ReadOne(ctx, id)
@@ -112,7 +124,9 @@ func (h *handler) delete(c echo.Context) error {
 	if id == "" {
 		logger.ErrorContext(ctx, "api.v1.feira.delete", "o campo 'id' é obrigatório")
 		logger.L.Println(time.Now(), "api.v1.feira.delete", "o campo 'id' é obrigatório")
-		return fverr.New(http.StatusBadRequest, "Requisição Inválida", nil)
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Data: "Requisição Inválida",
+		})
 	}
 
 	err := h.apps.Feira.Delete(ctx, id)
@@ -139,7 +153,7 @@ func (h *handler) search(c echo.Context) error {
 		logger.ErrorContext(ctx, "api.v1.feira.search.Validate", err.Error())
 		logger.L.Println(time.Now(), "api.v1.feira.search.Validate", err.Error())
 		return c.JSON(http.StatusBadRequest, model.Response{
-			Data: "Falha ao recuperar dados da requisição",
+			Data: "Requisição Inválida",
 		})
 	}
 
