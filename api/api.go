@@ -1,8 +1,6 @@
 package api
 
 import (
-	"fmt"
-
 	"github.com/labstack/echo/v4"
 	v1 "github.com/unico/FeirasLivresAPI/api/v1"
 	"github.com/unico/FeirasLivresAPI/app"
@@ -17,6 +15,4 @@ type Options struct {
 // Register api instance
 func Register(opts Options) {
 	v1.Register(opts.Group, opts.Apps)
-
-	fmt.Println("Registered -> Api")
 }
